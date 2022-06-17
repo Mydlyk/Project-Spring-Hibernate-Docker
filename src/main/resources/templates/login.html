@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        </br>
+        <h2>Logowanie</h2>
+        <form action="/" method="post">
+            <label for="login">Login:</label></br>
+            <input type="text" required id="login" name="login"></br>
+            <label for="password">Password:</label></br>
+            <input type="password" required class="mb-2" id="password" name="password"></br>
+            <input type="submit" value="Submit">
+            <input type="button" onclick="window.location.href='http://localhost:8080/register'" value="Register">
+<!--            th:onclick="|window.location.href='/update?server=${key}'|" moze sie przydac xd-->
+        </form>
+        </br>
+
+        <div class="alert alert-success" role="alert" th:if="${Correct_registration != null}" th:text="${Correct_registration}"/>
+        <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"/>
+    </div>
+</body>
+</html>

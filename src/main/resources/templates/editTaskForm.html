@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Add Task</title>
+</head>
+<body>
+<div class="container">
+    </br>
+    <h2>Edit Task</h2>
+    <hr/>
+
+    <form th:action="@{/editTaskForm}" method="POST">
+        <label class="mb-0" for="title">Title:</label>
+        <input type="text" id="title" th:value="${task.title}" class="form-control col-4 mb-2" name="title"/>
+
+        <label class="mb-0" for="content">Content:</label>
+        <input type="text" id="content" th:value="${task.content}" class="form-control col-4 mb-2" name="content"/>
+
+        <label class="mb-0" for="added">Added:</label>
+        <input type="datetime-local" id="added" class="form-control col-4 mb-2" th:value="${added}" name="added"/>
+
+        <label class="mb-0" for="deadline">Deadline:</label>
+        <input type="datetime-local" id="deadline" class="form-control col-4 mb-2" th:value="${deadline}" name="deadline"/>
+
+        <label class="mb-0" for="finished">Finished:</label>
+        <input type="datetime-local" id="finished" class="form-control col-4 mb-2" th:value="${finished}" name="finished"/>
+
+
+        <div class="d-flex justify-content-start">
+            <div class="mr-3">
+                <label class="mb-0" for="priority">Priority:</label></br>
+                <select class="form-select form-select-md mb-3" name="priority" id="priority">
+                    <option th:selected="${priority} == 'low'" value="low">Low</option>
+                    <option th:selected="${priority} == 'medium'" value="medium">Medium</option>
+                    <option th:selected="${priority} == 'high'" value="high">High</option>
+                </select>
+            </div>
+            <div class="mr-3">
+                <label class="mb-0" for="status">Status:</label></br>
+                <select class="form-select form-select-md mb-3" name="status" id="status">
+                    <option th:selected="${status} == 'not_finished'" value="not_finished">Not finished</option>
+                    <option th:selected="${status} == 'finished'" value="finished">Finished</option>
+                    <option th:selected="${status} == 'droped'" value="droped">Dropped</option>
+                    <option th:selected="${status} == 'onhold'" value="onhold">On hold</option>
+                </select>
+            </div>
+            <div class="d-flex align-items-center">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+        <input type="hidden" th:value="${task.id}" name="id"/>
+
+        <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"/>
+    </form>
+    <hr/>
+    <a th:href="@{/home}">Back to list</a>
+
+
+</div>
+</body>
+</html>

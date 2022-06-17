@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css"/>
+</head>
+<body>
+<div class="container">
+    </br>
+    <h2>To do list</h2>
+    </hr>
+    <div class="d-flex justify-content-between">
+        <a th:href="@{/addTaskForm}" class="btn btn-primary mb-2">Add task</a>
+        <a th:href="@{/logout}" class="btn btn-danger mb-2">Logout</a>
+    </div>
+
+    <table class="table table-border table-striped" id="task-table">
+        <thead>
+        <tr>
+            <th>Tytuł</th>
+            <th>Content</th>
+            <th>Added</th>
+            <th>Deadline</th>
+            <th>Finished</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task: ${tasks}">
+            <td th:text="${task.title}"></td>
+            <td th:text="${task.content}"></td>
+            <td style="white-space:nowrap;">
+                <span th:text="${#temporals.format(task.added,'dd-MM-yyyy')}"></span><br/>
+                <span th:text="${#temporals.format(task.added,'HH:mm')}"></span>
+            </td>
+            <td style="white-space:nowrap;" >
+                <span th:text="${#temporals.format(task.deadline,'dd-MM-yyyy')}"></span><br/>
+                <span th:text="${#temporals.format(task.deadline,'HH:mm')}"></span>
+            </td>
+            <td style="white-space:nowrap;" >
+                <span th:text="${#temporals.format(task.finished,'dd-MM-yyyy')}"></span><br/>
+                <span th:text="${#temporals.format(task.finished,'HH:mm')}"></span>
+            </td>
+            <td th:text="${task.status}"></td>
+            <td th:text="${task.priority}"></td>
+            <td>
+                <a th:href="@{/showUpdateForm(taskId = ${task.id})}" class="btn btn-info mb-2">Update</a></br>
+                <a th:href="@{/deleteTask(taskId = ${task.id})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    </br>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#task-table").DataTable({
+            'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets':[-1]
+            }]
+        });
+    })
+</script>
+</body>
+</html>
